@@ -12,6 +12,7 @@ public:
 	void insertItem(int index); // in the insert call the hash function?
 	void deleteItem(int key);
 	int hashFunction(string key);
+	void test();
 };
 
 
