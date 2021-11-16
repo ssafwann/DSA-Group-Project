@@ -1,3 +1,6 @@
+/*
+	A class used to represent a person object
+*/
 #ifndef PERSON_H
 #define PERSON_H
 
@@ -14,8 +17,8 @@ private:
 	std::string country;
 
 public:
-	Person(std::string ID, std::string jobTitle, std::string email, std::string lastName, 
-		   std::string firstName, std::string phoneNo, std::string skills, std::string country);
+	Person();
+	Person(std::string ID, std::string jobTitle, std::string email, std::string lastName,std::string firstName, std::string phoneNo, std::string skills, std::string country);
 	std::string getID();
 	std::string getjobTitle();
 	std::string getEmail();

@@ -24,7 +24,7 @@
     <ClCompile Include="person.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hash.cpp">
+    <ClCompile Include="HashMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,10 @@
     <ClInclude Include="menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hash.h">
+    <ClInclude Include="HashMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

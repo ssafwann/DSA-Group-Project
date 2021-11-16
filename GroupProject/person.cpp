@@ -1,5 +1,8 @@
 #include "person.h"
 
+Person::Person() {
+}
+
 Person::Person(std::string ID, std::string jobTitle, std::string email, std::string lastName, std::string firstName, std::string phoneNo, std::string skills, std::string country)
 {
 	this->ID = ID;

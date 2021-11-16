@@ -139,13 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="hash.cpp" />
+    <ClCompile Include="HashMap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="person.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="hash.h" />
+    <ClInclude Include="HashMap.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="person.h" />
   </ItemGroup>

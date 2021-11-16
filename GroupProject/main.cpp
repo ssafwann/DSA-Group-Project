@@ -1,55 +1,42 @@
 #include <iostream>
+
 #include "menu.h"
 #include "person.h"
-#include "hash.h"
-using namespace std;
+#include "Node.h"
+#include "HashMap.h"
 
+using namespace std;
+string getFileName() {
+	string fname = "!";
+	cout << "\t     File Names" << endl;
+	cout << "===================================" << endl;
+	cout << "\t[1] - DS_10K.txt" << endl;
+	cout << "\t[2] - DS_30K.txt" << endl;
+	cout << "\t[3] - DS_70K.txt" << endl;
+	cout << "\t[4] - DS_100K.txt" << endl;
+	cout << "===================================" << endl;
+	cout << "Enter file Name(-1 to stop): ";
+	while (!(cin >> fname)) {
+		cout << "\nEnter a valid name only\n " << endl;
+		cin.clear();
+		cin.ignore(123, '\n');
+	}
+	return fname;
+}
 
 
 int main() {
-	string userInput = "!";
-	string fname;
-	bool fileChosen = true;
 	bool exitProgram = false;
 	do {
-		cout << "  Choose a file to insert records" << endl;
-		cout << "===================================" << endl;
-		cout << "\t[1] - 10k file" << endl;
-		cout << "\t[2] - 30k file" << endl;
-		cout << "\t[3] - 70k file" << endl;
-		cout << "\t[4] - 100k file" << endl;
-		cout << "\t[5] - Exit" << endl;
-		cout << "===================================" << endl;
-		cout << "Your choice: ";
-		cin >> userInput;
-
-		fileChosen = true;
-
-		if (userInput == "1") {
-			fname = "DS_10K.txt";
-		}
-		else if (userInput == "2") {
-			fname = "DS_30K.txt";
-		}
-		else if (userInput == "3") {
-			fname = "DS_70K.txt";
-		}
-		else if (userInput == "4") {
-			fname = "DS_100K.txt";
-		}
-		else if (userInput == "5") {
+		string fname = getFileName();
+		if (fname == "-1") {
 			exitProgram = true;
 		}
 		else {
-			fileChosen = false;
-			cout << "\nEnter valid Input\n" << endl;
+			HashMap persons(10007);
+			Menu menu;
+			menu.readFile(fname, persons);
 		}
-	} while (!fileChosen);
-
-	if (!exitProgram) {
-		cout << "next";
-	}
-
-
+	} while (!exitProgram);
 	return 0;
 }
