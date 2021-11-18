@@ -13,6 +13,9 @@ private:
 public:
 	void readFile(string fname, HashMap& persons);
 	void split(const string& s, char delim, vector<string>& elems);
+	void chooseOption();
+	void searchForRecords();
+	void deleteHashRecords();
 };
 
 

@@ -21,6 +21,9 @@ public:
 	int hashFunction(string key);
 	void setNoOfRecords(int noOfRecords);
 	void insertRecord(Person data);
+	//void removeRecord(Person data);
+
+
 	void displayWholeTable();
 
 };
