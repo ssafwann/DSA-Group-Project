@@ -67,7 +67,7 @@ int HashMap::hashFunction(string key)
 
 void HashMap::insertRecord(Person data)
 {	
-	int index = hashFunction(data.getID());
+	int index = hashFunction(data.getPhoneNo());
 	Node* hashNode = new Node(data);
 	if (hashTable[index] == NULL) {
 		hashTable[index] = hashNode;

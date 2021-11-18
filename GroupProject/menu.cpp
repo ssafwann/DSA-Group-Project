@@ -39,7 +39,7 @@ void Menu::readFile(string fname, HashMap& persons) {
 	cout << "\n" << persons.getNoOfRecords() << " records have been added." << endl;
 	cout << "The table size is: " << persons.getBuckets() << endl;
 	cout << "Elapsed time in microseconds: " << duration_micro << " micro sec" << endl;
-	//persons.displayWholeTable(); // temporary delete later
+	persons.displayWholeTable(); // temporary delete later
 }
 
 void Menu::split(const string& s, char delim, vector<string>& elems) {
