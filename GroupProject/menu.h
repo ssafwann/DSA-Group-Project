@@ -11,11 +11,12 @@ using namespace std;
 class Menu {
 private:
 public:
-	void readFile(string fname, HashMap& persons);
+	void readFile(string fname, HashMap& hashMap);
 	void split(const string& s, char delim, vector<string>& elems);
-	void chooseOption();
-	void searchForRecords();
-	void deleteHashRecords();
+	void chooseOption(HashMap& hashTable);
+	void searchForRecords(HashMap& persons);
+	void deleteHashRecords(HashMap& persons);
+	void writeToFile(string fname, HashMap& persons);
 };
 
 

@@ -9,13 +9,13 @@ using namespace std;
 string getFileName() {
 	string fname = "!";
 	cout << "\t     File Names" << endl;
-	cout << "===================================" << endl;
+	cout << "========================================" << endl;
 	cout << "\t[1] - DS_10K.txt" << endl;
 	cout << "\t[2] - DS_30K.txt" << endl;
 	cout << "\t[3] - DS_70K.txt" << endl;
 	cout << "\t[4] - DS_100K.txt" << endl;
-	cout << "===================================" << endl;
-	cout << "Enter file Name(-1 to stop): ";
+	cout << "========================================" << endl;
+	cout << "Enter file Name(-1 to exit): ";
 	while (!(cin >> fname)) {
 		cout << "\nEnter a valid name only\n " << endl;
 		cin.clear();
@@ -25,7 +25,7 @@ string getFileName() {
 }
 
 int determineTableSize(string &fname) {
-	for (int i = 0; i < fname.length(); i++) {
+	for (int i = 0; i < int(fname.length()); i++) {
 		fname[i] = toupper(fname[i]);
 	}
 
@@ -44,6 +44,20 @@ int determineTableSize(string &fname) {
 	return 0;
 }
 
+bool saveFile() {
+	char input = '!';
+	cout << "\n===========================================================" << endl;
+	cout << "Would you like to save your data before you exit/re-insert?" << endl;
+	cout << "If you choose to not save it, the new data will be lost" << endl;
+	cout << "===========================================================" << endl;
+	cout << "Your choice(Y/N): ";
+	cin >> input;
+	if (toupper(input) == 'Y') {
+		return true;
+	}
+	else return false;
+}
+
 
 int main() {
 	bool exitProgram = false;
@@ -54,10 +68,21 @@ int main() {
 			exitProgram = true;
 		}
 		else {
-			HashMap persons(size);
+			HashMap hashMap(size);
 			Menu menu;
-			menu.readFile(fname, persons);
-			menu.chooseOption();
+			menu.readFile(fname, hashMap); // insert the records
+			menu.chooseOption(hashMap);
+
+			// i have comment this part because it not that important right now
+			/* 
+			bool save = saveFile();
+			if (save) {
+				fname.insert(0, "NEW_");
+				menu.writeToFile(fname, hashMap);
+			}
+			cout << endl;
+			*/
+
 		}
 	} while (!exitProgram);
 	return 0;

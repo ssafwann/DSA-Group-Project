@@ -45,6 +45,8 @@ Node** HashMap::getHashTable()
 	return hashTable;
 }
 
+
+
 // function will be called after inserting all the rows from the file
 void HashMap::setNoOfRecords(int noOfRecords)
 {
@@ -80,6 +82,7 @@ void HashMap::insertRecord(Person data)
 
 }
 
+
 void HashMap::displayWholeTable() {
 	for (int i = 0; i < buckets; i++) {
 		if (hashTable[i] == NULL) {
@@ -95,6 +98,18 @@ void HashMap::displayWholeTable() {
 		}
 	}
 	cout << endl;
+}
+
+void HashMap::deleteByHash(string toDelete)
+{
+	int index = hashFunction(toDelete); // position of where the phone number is 
+
+}
+
+void HashMap::deleteByString(string toDelete)
+{
+	// loop through whole hashtable to check if any record matches "toDelete" string.
+	// if matches then delete
 }
 
 

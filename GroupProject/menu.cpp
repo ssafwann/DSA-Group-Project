@@ -10,7 +10,7 @@
 #include "HashMap.h"
 using namespace std;
 
-void Menu::readFile(string fname, HashMap& persons) {
+void Menu::readFile(string fname, HashMap& hashMap) {
 	int count = 0;
 	ifstream infile(fname);
 	string line;
@@ -26,7 +26,7 @@ void Menu::readFile(string fname, HashMap& persons) {
 		vector <string> rv;
 		split(line, '\t', rv);
 		Person person(rv[0], rv[1], rv[2], rv[3], rv[4], rv[5], rv[6], rv[7]);
-		persons.insertRecord(person);
+		hashMap.insertRecord(person);
 		++count;
 	}
 
@@ -35,10 +35,12 @@ void Menu::readFile(string fname, HashMap& persons) {
 	// Compute duration
 	auto duration_micro = chrono::duration_cast<chrono::microseconds>(end - start).count();
 
-	persons.setNoOfRecords(count);
-	cout << "\n" << persons.getNoOfRecords() << " records have been added." << endl;
-	cout << "The table size is: " << persons.getBuckets() << endl;
+	hashMap.setNoOfRecords(count);
+	cout << "\n===============================================" << endl;
+	cout << hashMap.getNoOfRecords() << " records have been added." << endl;
+	cout << "The table size is: " << hashMap.getBuckets() << endl;
 	cout << "Elapsed time in microseconds: " << duration_micro << " micro sec" << endl;
+	cout << "===============================================" << endl;
 	//persons.displayWholeTable(); // temporary delete later
 }
 
@@ -51,27 +53,31 @@ void Menu::split(const string& s, char delim, vector<string>& elems) {
 	}
 }
 
-void Menu::chooseOption()
+
+// use the HashMap& persons for deleting and searching, pass it into the functions
+void Menu::chooseOption(HashMap& persons)
 {
 	string userOption;
 	bool correctChoice = false;
 	do {
-		cout << "\nWhat would you like to do next" << endl;
+		cout << "\n\t   Next Operation" << endl;
 		cout << "===================================" << endl;
 		cout << "\t[D] - Delete Records" << endl;
 		cout << "\t[S] - Search Records" << endl;
-		cout << "\t[I] - Insert New Records(Back)" << endl;
+		cout << "\t[I] - Insert New File" << endl;
+		cout << "\t[B] - Back" << endl;
 		cout << "===================================" << endl;
 		cout << "Your choice: ";
 		cin >> userOption;
 
 		if (userOption == "D" || userOption == "d") {
-			deleteHashRecords();
+			deleteHashRecords(persons);
 		}
 		else if (userOption == "S" || userOption == "s") {
-			searchForRecords();
+			searchForRecords(persons);
 		}
-		else if (userOption == "I" || userOption == "i") {
+		else if (userOption == "I" || userOption == "i" || userOption == "B" || userOption == "b") {
+			cout << endl;
 			correctChoice = true;
 		}
 		else {
@@ -80,26 +86,57 @@ void Menu::chooseOption()
 	} while (correctChoice == false);
 }
 
-// modify this
-void Menu::searchForRecords()
+void Menu::searchForRecords(HashMap &persons)
 {
+
 
 }
 
-// modify this
-void Menu::deleteHashRecords()
+void Menu::deleteHashRecords(HashMap& persons)
 {
-	bool stopDeleting = false;
 	string userOption;
+	bool exitDeleting = false;
 	do {
-		cout << "\nYou can delete by single record: Phone Number" << endl;
-		cout << "Yan also delete by batch: Country" << endl;
-		cout << "Your choice(-1 to stop): ";
+		cout << "\n========================================" << endl;
+		cout << "Enter Phone No OR Country(-1 to go back): ";
 		cin >> userOption;
+		cout << "========================================" << endl;
+
+		// check if user entered phone number or country
 		if (userOption == "-1") {
-			stopDeleting = true;
+			exitDeleting = true;
 		}
-	} while (stopDeleting == false);
+		else if (userOption[0] >= 65) {
+			persons.deleteByString(userOption); // this sends you to the hash map class to delete country
+		}
+		else {
+			persons.deleteByHash(userOption);  // this sends you to the hash map class to delete phone number
+		}
+	} while (!exitDeleting);
+}
+
+void Menu::writeToFile(string fname,  HashMap& persons)
+{
+	Node** hashTable = persons.getHashTable();
+	ofstream output(fname);
+	string line = "";
+
+	for (int i = 0; i < persons.getBuckets(); i++) {
+		if (hashTable[i] != NULL) {
+			Node* current = hashTable[i];
+			while (current != NULL) {
+				line += current->data.getID() + '\t' + current->data.getjobTitle() + '\t'
+					+ current->data.getEmail() + '\t' + current->data.getLastName() + '\t'
+					+ current->data.getFirstName() + '\t' + current->data.getPhoneNo() + '\t'
+					+ current->data.getSkills() + '\t' + current->data.getCountry() + '\t' + '\n';
+				current = current->next; 
+			}
+
+		}
+	}
+	output << line;
+	output.close(); 
+	cout << "\nFile with new data has been created" << endl;
 }
 
 
