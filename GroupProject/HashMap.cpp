@@ -56,7 +56,7 @@ void HashMap::setNoOfRecords(int noOfRecords)
 int HashMap::hashFunction(string key)
 {
 	size_t value = 0;
-	for (int i = 0; i < key.length(); i++) {
+	for (int i = 0; i < (int)key.length(); i++) {
 		if (key[i] != '-')
 		{  
 			//value += (key[i] * (int)pow(33, i)) % buckets;
