@@ -46,6 +46,7 @@ int determineTableSize(string &fname) {
 
 
 int main() {
+	string num = "10";
 	bool exitProgram = false;
 	do {
 		string fname = getFileName();
