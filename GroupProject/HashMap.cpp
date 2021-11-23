@@ -199,6 +199,55 @@ void HashMap::deleteByString(string toDelete)
 	}
 }
 
+void HashMap::searchByString(string toSearch)
+{
+	int totalMatches = 0;
+	// Record start time
+	auto start = chrono::steady_clock::now();
+	for (int i = 0; i < buckets; i++) {
+		if (hashTable[i] != NULL) {
+			Node* current = hashTable[i];
+			while (current != NULL) {
+				if (toSearch == current->data.getCountry() || toSearch == current->data.getjobTitle() ||
+					toSearch == current->data.getSkills() || toSearch == current->data.getPhoneNo()) {
+					++totalMatches;
+				}
+				current = current->next;
+			}
+		}
+	}
+	auto end = chrono::steady_clock::now();
+	auto duration_micro = chrono::duration_cast<chrono::microseconds>(end - start).count();
+	cout << "\n===============================================" << endl;
+	cout << totalMatches << " matching records were found" << endl;
+	cout << "Elapsed time in microseconds: " << duration_micro << " micro sec" << endl;
+	cout << "===============================================\n" << endl;
+}
+
+void HashMap::searchByHash(string toSearch)
+{
+	int index = hashFunction(toSearch);
+	int totalMatches = 0;
+
+	Node* current = hashTable[index];
+	// Record start time
+	auto start = chrono::steady_clock::now();
+	while (current != NULL) {
+		if (toSearch == current->data.getPhoneNo()) {
+			++totalMatches;
+		}
+		current = current->next;
+	}
+	auto end = chrono::steady_clock::now();
+	auto duration_micro = chrono::duration_cast<chrono::microseconds>(end - start).count();
+	cout << "\n===============================================" << endl;
+	cout << totalMatches << " matching record was found" << endl;
+	cout << "Elapsed time in microseconds: " << duration_micro << " micro sec" << endl;
+	cout << "===============================================\n" << endl;
+
+}
+
+
 
 
 

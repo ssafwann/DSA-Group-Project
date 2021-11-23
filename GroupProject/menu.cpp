@@ -87,8 +87,50 @@ void Menu::chooseOption(HashMap& persons)
 
 void Menu::searchForRecords(HashMap &persons)
 {
+	bool doneSearching = false;
+	do {
+		string userOption = "!";
+		cout << "\n\t    Choose Search Function" << endl;
+		cout << "=========================================" << endl;
+		cout << "\t[1] - Single Attribute" << endl;
+		cout << "\t[2] - Double Attribute" << endl;
+		cout << "\t[3] - Go back" << endl;
+		cout << "=========================================" << endl;
+		cout << "Your Choice: ";
+		cin >> userOption;
+		
+		if (userOption == "3") {
+			doneSearching = true;
+		}
 
-
+		if (!doneSearching) {
+			string toSearch1, toSearch2;
+			if (userOption == "1") {
+				cout << "\n Enter one of the following attributes" << endl;
+				cout << "=========================================" << endl;
+				cout << "             Phone Number" << endl;
+				cout << "             Skills" << endl;
+				cout << "             Job Title" << endl;
+				cout << "             Country" << endl;
+				cout << "=========================================" << endl;
+				cout << "Enter Attribute: ";
+				cin.get();
+				getline(cin, toSearch1);
+				if (toSearch1[0] < 65) {
+					persons.searchByHash(toSearch1);
+				}
+				else persons.searchByString(toSearch1);
+			}
+			else if (userOption == "2") {
+				cout << "\n Enter one of the following attributes" << endl;
+				cout << "=========================================" << endl;
+				cout << "             Skills x Job Title" << endl;
+				cout << "             Skills x Country" << endl;
+				cout << "=========================================" << endl;
+				// add function code here later
+			}
+		}
+	} while (!doneSearching);
 }
 
 void Menu::deleteHashRecords(HashMap& persons)
@@ -98,7 +140,7 @@ void Menu::deleteHashRecords(HashMap& persons)
 	do {
 		cout << "\n========================================" << endl;
 		cout << "Enter Phone No OR Country(-1 to go back): ";
-		cin >> userOption;
+		getline(cin, userOption);
 		cout << "========================================" << endl;
 
 		// check if user entered phone number or country
@@ -111,6 +153,7 @@ void Menu::deleteHashRecords(HashMap& persons)
 		else {
 			persons.deleteByHash(userOption);  // this sends you to the hash map class to delete phone number
 		}
+		cin.clear();
 	} while (!exitDeleting);
 }
 

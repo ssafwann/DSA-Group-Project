@@ -24,8 +24,11 @@ public:
 	void insertRecord(Person data);
 	void displayWholeTable(); // will delete later, just for testing
 
-	void deleteByHash(string toDelete); // this function is for deleting phone num
-	void deleteByString(string toDelete); // this function is for deleting country
+	void deleteByHash(string toDelete); 
+	void deleteByString(string toDelete); 
+
+	void searchByString(string toSearch);
+	void searchByHash(string toSearch);
 
 };
 #endif // !HASHMAP_H
