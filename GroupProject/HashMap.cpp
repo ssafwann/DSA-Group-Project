@@ -151,13 +151,52 @@ void HashMap::deleteByHash(string toDelete)
 
 void HashMap::deleteByString(string toDelete)
 {
+	bool haveDeleted = false;
+	int totalDeleted = 0;
 
+	// Record start time
+	auto start = chrono::steady_clock::now();
+	for (int i = 0; i < buckets; i++) {
+		Node* current = hashTable[i];
+		Node* previous = NULL;
 
+		while (current && current->data.getCountry() != toDelete) {
+			previous = current;
+			current = current->next;
+		}
 
-
-
-	// loop through whole hashtable to check if any record matches "toDelete" string.
-	// if matches then delete
+		if (current) {
+			if (previous) {
+				previous->next = current->next;
+				haveDeleted = true;
+				delete current;
+				++totalDeleted;
+			}
+			else {
+				hashTable[i] = current->next;
+				haveDeleted = true;
+				delete current;
+				++totalDeleted;
+			}
+		}
+	}
+	auto end = chrono::steady_clock::now();
+	auto duration_micro = chrono::duration_cast<chrono::microseconds>(end - start).count();
+	cout << "\n===============================================" << endl;
+	if (haveDeleted) {
+		setNoOfRecords(getNoOfRecords() - totalDeleted);
+		cout << totalDeleted << " matching records were found and deleted" << endl;
+		cout << "The total amount of records now is: " << getNoOfRecords() << endl;
+		cout << "Elapsed time in microseconds: " << duration_micro << " micro sec" << endl;
+		cout << "===============================================\n" << endl;
+		return;
+	}
+	else {
+		cout << "0 matching records were found" << endl;
+		cout << "Elapsed time in microseconds: " << duration_micro << " micro sec" << endl;
+		cout << "===============================================\n" << endl;
+		return;
+	}
 }
 
 

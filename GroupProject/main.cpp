@@ -74,7 +74,7 @@ int main() {
 			menu.chooseOption(hashMap);
 
 			// i have comment this part because it not that important right now
-			/* 
+			/*
 			bool save = saveFile();
 			if (save) {
 				fname.insert(0, "NEW_");
