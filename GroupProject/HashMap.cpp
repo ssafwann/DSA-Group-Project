@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <chrono>
+
 using namespace std;
 
 
@@ -102,12 +104,58 @@ void HashMap::displayWholeTable() {
 
 void HashMap::deleteByHash(string toDelete)
 {
+	bool isDeleted = false;
 	int index = hashFunction(toDelete); // position of where the phone number is 
 
+	Node* current = hashTable[index];
+	Node* previous = NULL;
+
+	// Record start time
+	auto start = chrono::steady_clock::now();
+
+	while (current && current->data.getPhoneNo() != toDelete) {
+		previous = current;
+		current = current->next;
+	}
+
+	if (current) {
+		if (previous) {
+			previous->next = current->next;
+			isDeleted = true;
+			delete current;
+		}
+		else {
+			hashTable[index] = current->next;
+			isDeleted = true;
+			delete current;
+		}
+	}
+	auto end = chrono::steady_clock::now();
+	auto duration_micro = chrono::duration_cast<chrono::microseconds>(end - start).count();
+	cout << "\n===============================================" << endl;
+	if (isDeleted) {
+		setNoOfRecords(getNoOfRecords() - 1);
+		cout << "The phone number was found and was deleted." << endl;
+		cout << "The total amount of records now is: " << getNoOfRecords() << endl;
+		cout << "Elapsed time in microseconds: " << duration_micro << " micro sec" << endl;
+		cout << "===============================================\n" << endl;
+		return;
+	}
+	else {
+		cout << "The entered phone number was not found in the records." << endl;
+		cout << "Elapsed time in microseconds: " << duration_micro << " micro sec" << endl;
+		cout << "===============================================\n" << endl;
+		return;
+	}
 }
 
 void HashMap::deleteByString(string toDelete)
 {
+
+
+
+
+
 	// loop through whole hashtable to check if any record matches "toDelete" string.
 	// if matches then delete
 }

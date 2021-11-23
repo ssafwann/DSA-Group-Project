@@ -5,6 +5,7 @@
 #define HASHMAP_H
 
 #include "Node.h"
+#include <iostream>
 
 using namespace std;
 class HashMap {
