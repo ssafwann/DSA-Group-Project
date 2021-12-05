@@ -6,6 +6,7 @@
 #include "HashMap.h"
 
 using namespace std;
+
 string getFileName() {
 	string fname = "!";
 	cout << "\t     File Names" << endl;
@@ -71,18 +72,14 @@ int main() {
 			HashMap hashMap(size);
 			Menu menu;
 			menu.readFile(fname, hashMap); // insert the records
-			menu.chooseOption(hashMap);
+			menu.chooseOption(hashMap); 
 
-			// i have comment this part because it not that important right now
-			/*
 			bool save = saveFile();
 			if (save) {
 				fname.insert(0, "NEW_");
 				menu.writeToFile(fname, hashMap);
 			}
-			cout << endl;
-			*/
-
+			cout << endl;	
 		}
 	} while (!exitProgram);
 	return 0;

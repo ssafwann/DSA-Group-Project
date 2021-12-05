@@ -1,10 +1,11 @@
 /*
-	A class used to represent a person object
+	A class used to represent a person object(has 8 attributes)
 */
 #ifndef PERSON_H
 #define PERSON_H
 
 #include <string>
+
 class Person {
 private:
 	std::string ID;

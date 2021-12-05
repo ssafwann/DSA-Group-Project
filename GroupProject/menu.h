@@ -1,13 +1,15 @@
 /*
-	A class is used to perform some functions such as reading to files and more
+	A class which is responsible for printing out the menu and getting user inputs.
 */
 
 #ifndef MENU_H
 #define MENU_H
-#include <vector>
+
 #include "Person.h"
 #include "HashMap.h"
-using namespace std;
+
+#include <vector>
+
 class Menu {
 private:
 public:
@@ -15,7 +17,7 @@ public:
 	void split(const string& s, char delim, vector<string>& elems);
 	void chooseOption(HashMap& hashTable);
 	void searchForRecords(HashMap& persons);
-	void deleteHashRecords(HashMap& persons);
+	void deleteRecords(HashMap& persons);
 	void writeToFile(string fname, HashMap& persons);
 };
 

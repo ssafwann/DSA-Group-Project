@@ -1,18 +1,19 @@
 /*
-	A class used to represent a whole hash table (containing nodes)
+	A class used to represent a whole hash table (containing node objects) and some useful functions.
 */
 #ifndef HASHMAP_H
 #define HASHMAP_H
 
 #include "Node.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 class HashMap {
 private:
 	int buckets; // size of the table 
 	int noOfRecords; // total number of records in the table
-	Node** hashTable;
+	Node** hashTable; 
 public:
 	HashMap(int TABLE_SIZE);
 	~HashMap();
@@ -22,13 +23,18 @@ public:
 	int hashFunction(string key);
 	void setNoOfRecords(int noOfRecords);
 	void insertRecord(Person data);
-	void displayWholeTable(); // will delete later, just for testing
 
-	void deleteByHash(string toDelete); 
-	void deleteByString(string toDelete); 
+	// deleting functions
+	void deleteByHash(string toDelete);
+	void deleteByString(string toDelete);
 
-	void searchByString(string toSearch);
+	// searching functions
 	void searchByHash(string toSearch);
+	void searchByString(string toSearch);
+	void searchByDouble(string toSearch1, string toSearch2);
+	void deeperSearch(vector <Person> matchedRecords);
 
+	vector <Person> sortRecords(vector <Person> matchedRecords);
+	void displayMatchedRecords(vector <Person> matchedRecords);
 };
 #endif // !HASHMAP_H

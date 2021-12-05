@@ -1,3 +1,5 @@
+#include "Menu.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -5,10 +7,7 @@
 #include <vector>
 #include <chrono>
 
-#include "Menu.h"
-#include "HashMap.h"
-using namespace std;
-
+// used to get the contents of a file and input it into the hash table
 void Menu::readFile(string fname, HashMap& hashMap) {
 	int count = 0;
 	ifstream infile(fname);
@@ -18,9 +17,7 @@ void Menu::readFile(string fname, HashMap& hashMap) {
 		return;
 	}
 
-	// Record start time
 	auto start = chrono::steady_clock::now();
-
 	while (getline(infile, line)) {
 		vector <string> rv;
 		split(line, '\t', rv);
@@ -28,10 +25,7 @@ void Menu::readFile(string fname, HashMap& hashMap) {
 		hashMap.insertRecord(person);
 		++count;
 	}
-
-	// Record end time
 	auto end = chrono::steady_clock::now();
-	// Compute duration
 	auto duration_micro = chrono::duration_cast<chrono::microseconds>(end - start).count();
 
 	hashMap.setNoOfRecords(count);
@@ -40,9 +34,9 @@ void Menu::readFile(string fname, HashMap& hashMap) {
 	cout << "The table size is: " << hashMap.getBuckets() << endl;
 	cout << "Elapsed time in microseconds: " << duration_micro << " micro sec" << endl;
 	cout << "===============================================" << endl;
-	//persons.displayWholeTable(); // temporary delete later
 }
 
+// used to identify different attributes using '\t' and put them in a vector
 void Menu::split(const string& s, char delim, vector<string>& elems) {
 	stringstream ss;
 	ss.str(s);
@@ -52,8 +46,6 @@ void Menu::split(const string& s, char delim, vector<string>& elems) {
 	}
 }
 
-
-// use the HashMap& persons for deleting and searching, pass it into the functions
 void Menu::chooseOption(HashMap& persons)
 {
 	string userOption;
@@ -70,7 +62,7 @@ void Menu::chooseOption(HashMap& persons)
 		cin >> userOption;
 
 		if (userOption == "D" || userOption == "d") {
-			deleteHashRecords(persons);
+			deleteRecords(persons);
 		}
 		else if (userOption == "S" || userOption == "s") {
 			searchForRecords(persons);
@@ -85,7 +77,7 @@ void Menu::chooseOption(HashMap& persons)
 	} while (correctChoice == false);
 }
 
-void Menu::searchForRecords(HashMap &persons)
+void Menu::searchForRecords(HashMap& persons)
 {
 	bool doneSearching = false;
 	do {
@@ -98,7 +90,7 @@ void Menu::searchForRecords(HashMap &persons)
 		cout << "=========================================" << endl;
 		cout << "Your Choice: ";
 		cin >> userOption;
-		
+
 		if (userOption == "3") {
 			doneSearching = true;
 		}
@@ -116,6 +108,7 @@ void Menu::searchForRecords(HashMap &persons)
 				cout << "Enter Attribute: ";
 				cin.get();
 				getline(cin, toSearch1);
+				// check if user entered phone number or the other attributes
 				if (toSearch1[0] < 65) {
 					persons.searchByHash(toSearch1);
 				}
@@ -127,37 +120,45 @@ void Menu::searchForRecords(HashMap &persons)
 				cout << "             Skills x Job Title" << endl;
 				cout << "             Skills x Country" << endl;
 				cout << "=========================================" << endl;
-				// add function code here later
+				cout << "Enter first attribute: ";
+				cin.get();
+				getline(cin, toSearch1);
+				cout << "Enter second attribute: ";
+				getline(cin, toSearch2);
+				persons.searchByDouble(toSearch1, toSearch2);
+				cin.clear();
 			}
 		}
 	} while (!doneSearching);
 }
 
-void Menu::deleteHashRecords(HashMap& persons)
+void Menu::deleteRecords(HashMap& persons)
 {
-	string userOption;
+	string toDelete;
 	bool exitDeleting = false;
+	cin.ignore();
 	do {
-		cout << "\n========================================" << endl;
+		cout << "\n=============================================" << endl;
 		cout << "Enter Phone No OR Country(-1 to go back): ";
-		getline(cin, userOption);
-		cout << "========================================" << endl;
+		getline(cin, toDelete);
+		cout << "=============================================" << endl;
 
-		// check if user entered phone number or country
-		if (userOption == "-1") {
+		if (toDelete == "-1") {
 			exitDeleting = true;
 		}
-		else if (userOption[0] >= 65) {
-			persons.deleteByString(userOption); // this sends you to the hash map class to delete country
+		// check if user entered phone number or country
+		else if (toDelete[0] >= 65) {
+			persons.deleteByString(toDelete);
 		}
 		else {
-			persons.deleteByHash(userOption);  // this sends you to the hash map class to delete phone number
+			persons.deleteByHash(toDelete);
 		}
 		cin.clear();
 	} while (!exitDeleting);
 }
 
-void Menu::writeToFile(string fname,  HashMap& persons)
+// used to get the person object in the hash table and store each of its attributes in a new file
+void Menu::writeToFile(string fname, HashMap& persons)
 {
 	Node** hashTable = persons.getHashTable();
 	ofstream output(fname);
@@ -171,13 +172,13 @@ void Menu::writeToFile(string fname,  HashMap& persons)
 					+ current->data.getEmail() + '\t' + current->data.getLastName() + '\t'
 					+ current->data.getFirstName() + '\t' + current->data.getPhoneNo() + '\t'
 					+ current->data.getSkills() + '\t' + current->data.getCountry() + '\t' + '\n';
-				current = current->next; 
+				current = current->next;
 			}
 
 		}
 	}
 	output << line;
-	output.close(); 
+	output.close();
 	cout << "\nFile with new data has been created" << endl;
 }
 
