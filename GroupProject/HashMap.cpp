@@ -354,7 +354,9 @@ void HashMap::searchByDouble(string toSearch1, string toSearch2)
 				if ((toSearch1 == current->data.getCountry() && toSearch2 == current->data.getSkills()) ||
 					(toSearch2 == current->data.getCountry() && toSearch1 == current->data.getSkills()) ||
 					(toSearch1 == current->data.getSkills() && toSearch2 == current->data.getjobTitle()) ||
-					(toSearch2 == current->data.getSkills() && toSearch1 == current->data.getjobTitle())) {
+					(toSearch2 == current->data.getSkills() && toSearch1 == current->data.getjobTitle()) ||
+					(toSearch1 == current->data.getCountry() && toSearch2 == current->data.getjobTitle()) ||
+					(toSearch2 == current->data.getjobTitle() && toSearch1 == current->data.getCountry	())){
 					++totalMatches;
 					matchedRecords.push_back(current->data);
 				}

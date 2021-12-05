@@ -119,6 +119,7 @@ void Menu::searchForRecords(HashMap& persons)
 				cout << "=========================================" << endl;
 				cout << "             Skills x Job Title" << endl;
 				cout << "             Skills x Country" << endl;
+				cout << "             Country x Job Title" << endl;
 				cout << "=========================================" << endl;
 				cout << "Enter first attribute: ";
 				cin.get();
