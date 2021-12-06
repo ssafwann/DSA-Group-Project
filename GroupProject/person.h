@@ -1,5 +1,5 @@
 /*
-	A class used to represent a person object(has 8 attributes)
+	A class used to represent a person object(includes 8 attributes)
 */
 #ifndef PERSON_H
 #define PERSON_H

@@ -204,10 +204,7 @@ void HashMap::searchByString(string toSearch)
 	auto duration_micro = chrono::duration_cast<chrono::microseconds>(end - start).count();
 
 	if (matchedRecords.size() != 0) {
-		// auto start = chrono::steady_clock::now();
 		matchedRecords = sortRecords(matchedRecords);
-		// auto end = chrono::steady_clock::now();
-		// auto duration_micro = chrono::duration_cast<chrono::microseconds>(end - start).count();
 		displayMatchedRecords(matchedRecords);
 		cout << "\nElapsed time in microseconds: " << duration_micro << " micro sec\n" << endl;
 	}
@@ -249,6 +246,7 @@ void HashMap::searchByHash(string toSearch)
 	if (totalMatches != 0) {
 		displayMatchedRecords(matchedRecords);
 	}
+
 	cout << "\n===============================================" << endl;
 	cout << totalMatches << " matching record was found" << endl;
 	cout << "Elapsed time in microseconds: " << duration_micro << " micro sec" << endl;
@@ -282,12 +280,8 @@ void HashMap::deeperSearch(vector<Person> matchedRecords)
 	auto duration_micro = chrono::duration_cast<chrono::microseconds>(end - start).count();
 
 	if (newRecords.size() != 0) {
-		auto start = chrono::steady_clock::now();
 		newRecords = sortRecords(newRecords);
-		auto end = chrono::steady_clock::now();
-		auto duration_micro = chrono::duration_cast<chrono::microseconds>(end - start).count();
 		displayMatchedRecords(newRecords);
-		cout << "\nElapsed time in microseconds: " << duration_micro << " micro sec\n" << endl;
 	}
 
 	cout << "\n===============================================" << endl;
@@ -356,7 +350,7 @@ void HashMap::searchByDouble(string toSearch1, string toSearch2)
 					(toSearch1 == current->data.getSkills() && toSearch2 == current->data.getjobTitle()) ||
 					(toSearch2 == current->data.getSkills() && toSearch1 == current->data.getjobTitle()) ||
 					(toSearch1 == current->data.getCountry() && toSearch2 == current->data.getjobTitle()) ||
-					(toSearch2 == current->data.getjobTitle() && toSearch1 == current->data.getCountry	())){
+					(toSearch2 == current->data.getjobTitle() && toSearch1 == current->data.getCountry())){
 					++totalMatches;
 					matchedRecords.push_back(current->data);
 				}

@@ -29,7 +29,8 @@ int determineTableSize(string &fname) {
 	for (int i = 0; i < int(fname.length()); i++) {
 		fname[i] = toupper(fname[i]);
 	}
-
+	
+	// use prime number as the table size for each file, this helps in avoiding collisions
 	if (fname == "DS_10K.TXT") {
 		return 10007;
 	}

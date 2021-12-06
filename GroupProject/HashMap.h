@@ -1,5 +1,5 @@
 /*
-	A class used to represent a whole hash table (containing node objects) and some useful functions.
+	A class used to represent a whole hash table (containing node objects) and some functions related to it.
 */
 #ifndef HASHMAP_H
 #define HASHMAP_H

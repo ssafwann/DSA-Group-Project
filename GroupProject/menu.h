@@ -21,5 +21,4 @@ public:
 	void writeToFile(string fname, HashMap& persons);
 };
 
-
 #endif // !MENU_H
